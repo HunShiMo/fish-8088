@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('预警信息列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>温度最低值：</label>
+                                <input type="text" name="tmpMin"/>
+                            </li>
+                            <li>
+                                <label>温度最高值：</label>
+                                <input type="text" name="tmpMax"/>
+                            </li>
+                            <li>
+                                <label>盐度最低值：</label>
+                                <input type="text" name="saltMin"/>
+                            </li>
+                            <li>
+                                <label>盐度最高值：</label>
+                                <input type="text" name="saltMax"/>
+                            </li>
+                            <li>
+                                <label>深度最低值：</label>
+                                <input type="text" name="deepMin"/>
+                            </li>
+                            <li>
+                                <label>深度最高值：</label>
+                                <input type="text" name="deepMax"/>
+                            </li>
+                            <li>
+                                <label>叶绿素最低值：</label>
+                                <input type="text" name="ylsMin"/>
+                            </li>
+                            <li>
+                                <label>叶绿素最高值：</label>
+                                <input type="text" name="ylsMax"/>
+                            </li>
+                            <li>
+                                <label>溶解氧最低值：</label>
+                                <input type="text" name="rjyMin"/>
+                            </li>
+                            <li>
+                                <label>溶解氧最高值：</label>
+                                <input type="text" name="rjyMax"/>
+                            </li>
+                            <li>
+                                <label>收件人：</label>
+                                <input type="text" name="emailReceiver"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:FishThresholdRecord:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:FishThresholdRecord:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:FishThresholdRecord:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:FishThresholdRecord:remove')}]];
+        var prefix = ctx + "system/FishThresholdRecord";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "预警信息",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    visible: false
+                },
+                {
+                    field: 'tmpMin',
+                    title: '温度最低值'
+                },
+                {
+                    field: 'tmpMax',
+                    title: '温度最高值'
+                },
+                {
+                    field: 'saltMin',
+                    title: '盐度最低值'
+                },
+                {
+                    field: 'saltMax',
+                    title: '盐度最高值'
+                },
+                {
+                    field: 'deepMin',
+                    title: '深度最低值'
+                },
+                {
+                    field: 'deepMax',
+                    title: '深度最高值'
+                },
+                {
+                    field: 'ylsMin',
+                    title: '叶绿素最低值'
+                },
+                {
+                    field: 'ylsMax',
+                    title: '叶绿素最高值'
+                },
+                {
+                    field: 'rjyMin',
+                    title: '溶解氧最低值'
+                },
+                {
+                    field: 'rjyMax',
+                    title: '溶解氧最高值'
+                },
+                {
+                    field: 'emailReceiver',
+                    title: '收件人'
+                }
+                ]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

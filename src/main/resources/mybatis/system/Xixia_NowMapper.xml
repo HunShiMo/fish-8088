@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.Now_xixia.mapper.Xixia_NowMapper">
+
+    <resultMap type="Xixia_Now" id="Xixia_NowResult">
+        <result property="id"    column="id"    />
+        <result property="date"    column="date"    />
+        <result property="hour"    column="hour"    />
+        <result property="minute"    column="minute"    />
+        <result property="temp"    column="temp"    />
+        <result property="salt"    column="salt"    />
+        <result property="deep"    column="deep"    />
+        <result property="ylsCon"    column="yls_con"    />
+        <result property="rjyCon"    column="rjy_con"    />
+        <result property="timestamp"    column="timestamp"    />
+        <result property="note"    column="note"    />
+    </resultMap>
+
+    <sql id="selectXixia_NowVo">
+        select id, date, hour, minute, temp, salt, deep, yls_con, rjy_con, timestamp, note from fish_qixia_20160101_20200701
+    </sql>
+
+    <select id="selectXixia_NowList" parameterType="Xixia_Now" resultMap="Xixia_NowResult">
+        select * from fish_qixia_20160101_20200701 where id=(select max(id) from fish_qixia_20160101_20200701)
+<!--        <include refid="selectXixia_NowVo"/>-->
+<!--        <where>  -->
+<!--            <if test="date != null  and date != ''"> and date = #{date}</if>-->
+<!--            <if test="hour != null  and hour != ''"> and hour = #{hour}</if>-->
+<!--            <if test="minute != null  and minute != ''"> and minute = #{minute}</if>-->
+<!--            <if test="temp != null  and temp != ''"> and temp = #{temp}</if>-->
+<!--            <if test="salt != null  and salt != ''"> and salt = #{salt}</if>-->
+<!--            <if test="deep != null  and deep != ''"> and deep = #{deep}</if>-->
+<!--            <if test="ylsCon != null  and ylsCon != ''"> and yls_con = #{ylsCon}</if>-->
+<!--            <if test="rjyCon != null  and rjyCon != ''"> and rjy_con = #{rjyCon}</if>-->
+<!--        </where>-->
+    </select>
+
+    <select id="selectXixia_NowById" parameterType="Long" resultMap="Xixia_NowResult">
+        <include refid="selectXixia_NowVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertXixia_Now" parameterType="Xixia_Now" useGeneratedKeys="true" keyProperty="id">
+        insert into fish_qixia_20160101_20200701
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="date != null">date,</if>
+            <if test="hour != null">hour,</if>
+            <if test="minute != null">minute,</if>
+            <if test="temp != null">temp,</if>
+            <if test="salt != null">salt,</if>
+            <if test="deep != null">deep,</if>
+            <if test="ylsCon != null">yls_con,</if>
+            <if test="rjyCon != null">rjy_con,</if>
+            <if test="timestamp != null">timestamp,</if>
+            <if test="note != null">note,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="date != null">#{date},</if>
+            <if test="hour != null">#{hour},</if>
+            <if test="minute != null">#{minute},</if>
+            <if test="temp != null">#{temp},</if>
+            <if test="salt != null">#{salt},</if>
+            <if test="deep != null">#{deep},</if>
+            <if test="ylsCon != null">#{ylsCon},</if>
+            <if test="rjyCon != null">#{rjyCon},</if>
+            <if test="timestamp != null">#{timestamp},</if>
+            <if test="note != null">#{note},</if>
+         </trim>
+    </insert>
+
+    <update id="updateXixia_Now" parameterType="Xixia_Now">
+        update fish_qixia_20160101_20200701
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="date != null">date = #{date},</if>
+            <if test="hour != null">hour = #{hour},</if>
+            <if test="minute != null">minute = #{minute},</if>
+            <if test="temp != null">temp = #{temp},</if>
+            <if test="salt != null">salt = #{salt},</if>
+            <if test="deep != null">deep = #{deep},</if>
+            <if test="ylsCon != null">yls_con = #{ylsCon},</if>
+            <if test="rjyCon != null">rjy_con = #{rjyCon},</if>
+            <if test="timestamp != null">timestamp = #{timestamp},</if>
+            <if test="note != null">note = #{note},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteXixia_NowById" parameterType="Long">
+        delete from fish_qixia_20160101_20200701 where id = #{id}
+    </delete>
+
+    <delete id="deleteXixia_NowByIds" parameterType="String">
+        delete from fish_qixia_20160101_20200701 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

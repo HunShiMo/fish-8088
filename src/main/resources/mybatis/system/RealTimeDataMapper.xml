@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.historical.mapper.RealTimeDataMapper">
+
+    <resultMap type="FishFarm" id="FishFarmResult">
+        <id     property="id"            column="id"            />
+        <result property="date"          column="date"          />
+        <result property="hour"          column="hour"          />
+        <result property="minute"        column="minute"        />
+        <result property="temp"          column="temp"          />
+        <result property="salt"          column="salt"          />
+        <result property="deep"          column="deep"          />
+        <result property="ylsCon"        column="yls_con"       />
+        <result property="rjyCon"        column="rjy_con"       />
+        <result property="timestamp"     column="timestamp"     />
+        <result property="note"          column="note"          />
+    </resultMap>
+
+    <sql id="selectFishFarmFromQixiaVo">
+        select qixia.id, qixia.date, qixia.`hour`, qixia.`minute`, qixia.temp, qixia.salt, qixia.deep, qixia.yls_con, qixia.rjy_con
+        from fish_qixia_20160101_20200701 qixia
+    </sql>
+
+    <sql id="selectFishFarmFromSanggouVo">
+        select sanggou.id, sanggou.date, sanggou.`hour`, sanggou.`minute`, sanggou.temp, sanggou.salt, sanggou.deep, sanggou.yls_con, sanggou.rjy_con
+        from fish_sanggou_20160101_20200701 sanggou
+    </sql>
+
+    <sql id="selectFishFarmFromXiaoshidaoVo">
+        select xiaoshidao.id, xiaoshidao.date, xiaoshidao.`hour`, xiaoshidao.`minute`, xiaoshidao.temp, xiaoshidao.salt, xiaoshidao.deep, xiaoshidao.yls_con, xiaoshidao.rjy_con
+        from fish_xiaoshidao_20160101_20200701 xiaoshidao
+    </sql>
+
+    <select id="getDataInfo" parameterType="String" resultMap="FishFarmResult">
+        <include refid="selectFishFarmFromQixiaVo"/>
+        WHERE qixia.date = #{date}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>数据分布</title>
+    <link href="favicon.ico" rel="shortcut icon">
+    <link href="../static/layui/css/layui.css" rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <link href="../static/css/data_show.css" rel="stylesheet" th:href="@{/css/data_show.css}"/>
+</head>
+
+<body>
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" id="alert_label">请选择要查看的日期:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div id="temp_line" class="chart"></div>
+        <div id="salt_line" class="chart"></div>
+    </div>
+    <div class="box">
+        <div id="yls_line" class="chart" ></div>
+        <div id="rjy_line" class="chart" ></div>
+    </div>
+    <script crossorigin="anonymous" integrity="sha512-lH7EjQK6WD0FemEeB5qq5JYpgKcmEa+JaQ0j4hKy5prjc3nO5sRdPoVBxWD2pqNHbrkUn953CzeSLLkuRMGQKg==" src="https://lib.baomitu.com/echarts/5.3.0/echarts.js"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/Chart.min.js}"></script>
+    <script th:src="@{/js/utils.js}"></script>
+<!--    <script th:src="@{/js/echarts.js}"></script>-->
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/ruoyi/js/ry-ui.js}"></script>
+    <script th:src="@{/js/data_show.js}"></script>
+</body>
+</html>

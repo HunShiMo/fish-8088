@@ -1,0 +1,16 @@
+.chart {
+	width: 800px;
+	height: 400px;
+}
+
+.box {
+	display: inline-flex;
+}
+
+.layui-form-label {
+	width: 130px;
+}
+
+.layui-inline {
+	margin-left: 35px;
+}

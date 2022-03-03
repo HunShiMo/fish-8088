@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.fishThresholdRecord.mapper.FishThresholdRecordMapper">
+    
+    <resultMap type="FishThresholdRecord" id="FishThresholdRecordResult">
+        <result property="id"    column="id"    />
+        <result property="tmpMin"    column="tmp_min"    />
+        <result property="tmpMax"    column="tmp_max"    />
+        <result property="saltMin"    column="salt_min"    />
+        <result property="saltMax"    column="salt_max"    />
+        <result property="deepMin"    column="deep_min"    />
+        <result property="deepMax"    column="deep_max"    />
+        <result property="ylsMin"    column="yls_min"    />
+        <result property="ylsMax"    column="yls_max"    />
+        <result property="rjyMin"    column="rjy_min"    />
+        <result property="rjyMax"    column="rjy_max"    />
+        <result property="emailReceiver"    column="email_receiver"    />
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <sql id="selectFishThresholdRecordVo">
+        select id, tmp_min, tmp_max, salt_min, salt_max, deep_min, deep_max, yls_min, yls_max, rjy_min, rjy_max, email_receiver, user_id from fish_threshold_record
+    </sql>
+
+    <select id="getLastRecord" parameterType="Long" resultMap="FishThresholdRecordResult">
+        select * from fish_threshold_record re WHERE re.user_id = #{userId} order by id DESC limit 1
+    </select>
+
+    <select id="selectFishThresholdRecordList" parameterType="FishThresholdRecord" resultMap="FishThresholdRecordResult">
+        <include refid="selectFishThresholdRecordVo"/>
+        <where>  
+            <if test="tmpMin != null "> and tmp_min = #{tmpMin}</if>
+            <if test="tmpMax != null "> and tmp_max = #{tmpMax}</if>
+            <if test="saltMin != null "> and salt_min = #{saltMin}</if>
+            <if test="saltMax != null "> and salt_max = #{saltMax}</if>
+            <if test="deepMin != null "> and deep_min = #{deepMin}</if>
+            <if test="deepMax != null "> and deep_max = #{deepMax}</if>
+            <if test="ylsMin != null "> and yls_min = #{ylsMin}</if>
+            <if test="ylsMax != null "> and yls_max = #{ylsMax}</if>
+            <if test="rjyMin != null "> and rjy_min = #{rjyMin}</if>
+            <if test="rjyMax != null "> and rjy_max = #{rjyMax}</if>
+            <if test="emailReceiver != null  and emailReceiver != ''"> and email_receiver = #{emailReceiver}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+    
+    <select id="selectFishThresholdRecordById" parameterType="Integer" resultMap="FishThresholdRecordResult">
+        <include refid="selectFishThresholdRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFishThresholdRecord" parameterType="FishThresholdRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into fish_threshold_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tmpMin != null">tmp_min,</if>
+            <if test="tmpMax != null">tmp_max,</if>
+            <if test="saltMin != null">salt_min,</if>
+            <if test="saltMax != null">salt_max,</if>
+            <if test="deepMin != null">deep_min,</if>
+            <if test="deepMax != null">deep_max,</if>
+            <if test="ylsMin != null">yls_min,</if>
+            <if test="ylsMax != null">yls_max,</if>
+            <if test="rjyMin != null">rjy_min,</if>
+            <if test="rjyMax != null">rjy_max,</if>
+            <if test="emailReceiver != null">email_receiver,</if>
+            <if test="userId != null">user_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tmpMin != null">#{tmpMin},</if>
+            <if test="tmpMax != null">#{tmpMax},</if>
+            <if test="saltMin != null">#{saltMin},</if>
+            <if test="saltMax != null">#{saltMax},</if>
+            <if test="deepMin != null">#{deepMin},</if>
+            <if test="deepMax != null">#{deepMax},</if>
+            <if test="ylsMin != null">#{ylsMin},</if>
+            <if test="ylsMax != null">#{ylsMax},</if>
+            <if test="rjyMin != null">#{rjyMin},</if>
+            <if test="rjyMax != null">#{rjyMax},</if>
+            <if test="emailReceiver != null">#{emailReceiver},</if>
+            <if test="userId != null">#{userId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFishThresholdRecord" parameterType="FishThresholdRecord">
+        update fish_threshold_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tmpMin != null">tmp_min = #{tmpMin},</if>
+            <if test="tmpMax != null">tmp_max = #{tmpMax},</if>
+            <if test="saltMin != null">salt_min = #{saltMin},</if>
+            <if test="saltMax != null">salt_max = #{saltMax},</if>
+            <if test="deepMin != null">deep_min = #{deepMin},</if>
+            <if test="deepMax != null">deep_max = #{deepMax},</if>
+            <if test="ylsMin != null">yls_min = #{ylsMin},</if>
+            <if test="ylsMax != null">yls_max = #{ylsMax},</if>
+            <if test="rjyMin != null">rjy_min = #{rjyMin},</if>
+            <if test="rjyMax != null">rjy_max = #{rjyMax},</if>
+            <if test="emailReceiver != null">email_receiver = #{emailReceiver},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFishThresholdRecordById" parameterType="Integer">
+        delete from fish_threshold_record where id = #{id}
+    </delete>
+
+    <delete id="deleteFishThresholdRecordByIds" parameterType="String">
+        delete from fish_threshold_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
